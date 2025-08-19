@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using COCTMunicipality.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace COCTMunicipality.Controllers
 {
@@ -15,6 +15,7 @@ namespace COCTMunicipality.Controllers
 
         public IActionResult Index()
         {
+            ViewData["BodyClass"] = "index-page";
             return View();
         }
 

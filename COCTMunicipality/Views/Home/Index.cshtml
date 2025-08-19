@@ -1,36 +1,30 @@
 ﻿@{
     ViewData["Title"] = "COCT";
+    ViewData["BodyClass"] = "index-page"; // <-- important to activate faded navbar
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>@ViewData["Title"]</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-image: url('@Url.Content("~/images/backgrounds/backgroundIndex.jpg")');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-attachment: fixed;
-            font-family: Arial, sans-serif;
-        }
+<div class="content">
+    <h1>Welcome to COCT Municipality</h1>
+</div>
 
-        .content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        }
-    </style>
-</head>
-<body>
+<style>
+    body.index-page {
+        background-image: url('@Url.Content("~/images/backgrounds/backgroundIndex.jpg")');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
 
-</body>
-</html>
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+</style>
