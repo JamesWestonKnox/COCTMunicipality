@@ -1,10 +1,46 @@
 ﻿@{
     ViewData["Title"] = "COCT";
-    ViewData["BodyClass"] = "index-page"; // <-- important to activate faded navbar
+    ViewData["BodyClass"] = "index-page";
 }
 
-<div class="content">
-    <h1>Welcome to COCT Municipality</h1>
+<div class="content text-center">
+    <h1 class="mb-5">Welcome to the City of Cape Town Municipality website</h1>
+
+    <div class="row justify-content-center align-items-ststretch">
+        <div class="col-md-4 mb-4 d-flex">
+            <div class="card faded-card flex-fill">
+                <div class="card-body d-flex flex-column text-center p-4">
+                    <h3 class="card-title mb-3">Report Issues</h3>
+                    <p>Quickly report municipal service delivery issues in your area.</p>
+                    <div class="mt-auto">
+                        <a href="/Issues/ReportIssues" class="btn btn-custom w-100">Report issues</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4 d-flex">
+            <div class="card faded-card flex-fill">
+                <div class="card-body d-flex flex-column text-center p-4">
+                    <h3 class="card-title mb-3">Announcements</h3>
+                    <p>Stay up to date with important municipal announcements.</p>
+                    <div class="mt-auto">
+                        <a href="/Announcements/ViewAnnouncements" class="btn btn-custom w-100">View annoucements</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4 d-flex">
+            <div class="card faded-card flex-fill">
+                <div class="card-body d-flex flex-column text-center p-4">
+                    <h3 class="card-title mb-3">Request Status</h3>
+                    <p>Check the progress of your municipal service requests.</p>
+                    <div class="mt-auto">
+                        <a href="/Status/ViewStatus" class="btn btn-custom w-100">Check status</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -21,10 +57,44 @@
 
     .content {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        height: 100vh;
+        margin-top: 10vh;
         color: white;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
+
+    .faded-card {
+        background-color: rgba(255, 255, 255, 0.75);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+        .faded-card h3,
+        .faded-card p {
+            color: black;
+            text-shadow: none;
+        }
+
+        .faded-card .btn {
+            margin-top: auto;
+            border-radius: 8px;
+        }
+
+    .btn-custom {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        color: black;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-custom:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
 </style>

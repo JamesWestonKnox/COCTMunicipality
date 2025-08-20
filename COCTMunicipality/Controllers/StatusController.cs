@@ -4,8 +4,9 @@ namespace COCTMunicipality.Controllers
 {
     public class StatusController : Controller
     {
-        public IActionResult Index()
+        public IActionResult ViewStatus()
         {
+            ViewData["BodyClass"] = "index-page";
             return View();
         }
     }

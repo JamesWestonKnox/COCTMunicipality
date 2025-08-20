@@ -4,8 +4,9 @@ namespace COCTMunicipality.Controllers
 {
     public class IssuesController : Controller
     {
-        public IActionResult Index()
+        public IActionResult ReportIssues()
         {
+            ViewData["BodyClass"] = "index-page";
             return View();
         }
     }
