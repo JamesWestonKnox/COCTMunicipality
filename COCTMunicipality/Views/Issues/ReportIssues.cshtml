@@ -1,5 +1,121 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "COCT - Report Issue";
+    ViewData["BodyClass"] = "index-page";
 }
+
+<div class="content d-flex flex-column align-items-center">
+    <h1 class="mb-5 text-center">Report an Issue</h1>
+
+    <div class="form-card-wrapper w-100 px-3">
+        <div class="card faded-card mx-auto">
+            <div class="card-body d-flex flex-column p-4">
+                <h3 class="card-title mb-4 text-center">Submit Your Report</h3>
+                <form method="post" action="/Home/SubmitReport" enctype="multipart/form-data">
+
+                    <!-- Location -->
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Enter location of issue" required>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="sanitation">Sanitation</option>
+                            <option value="roads">Roads</option>
+                            <option value="utilities">Utilities</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="6" placeholder="Provide a detailed description" required></textarea>
+                    </div>
+
+                    <!-- Media attachment -->
+                    <div class="mb-3">
+                        <label for="media" class="form-label">Attach Media (optional)</label>
+                        <input class="form-control" type="file" id="media" name="media" accept="image/*,application/pdf">
+                    </div>
+
+                    <!-- Buttons (centered & equally spaced) -->
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        <a href="/" class="btn btn-custom">Back</a>
+                        <button type="submit" class="btn btn-custom">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body.index-page {
+        background-image: url('@Url.Content("~/images/backgrounds/backgroundIndex.jpg")');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .content {
+        margin-top: 10vh;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-card-wrapper {
+        max-width: 700px;
+    }
+
+    .faded-card {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+        .faded-card h3,
+        .faded-card p,
+        .form-label {
+            color: black;
+            text-shadow: none;
+        }
+
+        .faded-card .btn {
+            border-radius: 8px;
+        }
+
+    .btn-custom {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        color: black;
+        padding: 12px 24px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-custom:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+</style>
