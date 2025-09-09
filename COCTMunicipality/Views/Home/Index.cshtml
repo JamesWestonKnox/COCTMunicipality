@@ -4,9 +4,16 @@
 }
 
 <div class="content text-center">
-    <h1 class="mb-5">Welcome to the City of Cape Town Municipality website</h1>
 
-    <div class="row justify-content-center align-items-ststretch">
+    <h1 class="mb-3">Welcome to the City of Cape Town Municipality Website</h1>
+    <p class="mb-4">Your municipal services, announcements, and updates at your fingertips.</p>
+    <div class="btn-group mb-5">
+        <a href="/Issues/ReportIssues" class="btn btn-custom">Report Issue</a>
+        <a href="/Status/ViewStatus" class="btn btn-custom">Check Status</a>
+    </div>
+
+
+    <div class="row justify-content-center align-items-stretch mb-5">
         <div class="col-md-4 mb-4 d-flex">
             <div class="card faded-card flex-fill">
                 <div class="card-body d-flex flex-column text-center p-4">
@@ -24,7 +31,7 @@
                     <h3 class="card-title mb-3">Announcements</h3>
                     <p>Stay up to date with important municipal announcements.</p>
                     <div class="mt-auto">
-                        <a href="/Announcements/ViewAnnouncements" class="btn btn-custom w-100">View annoucements</a>
+                        <a href="/Announcements/ViewAnnouncements" class="btn btn-custom w-100">View announcements</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +48,87 @@
             </div>
         </div>
     </div>
+
+
+    <section class="services my-5 w-100">
+        <h2 class="text-center mb-4">Municipal Services</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-3 mb-3">
+                <div class="faded-card p-3 text-center">
+                    <h4>Waste Collection</h4>
+                    <p>View collection schedules and guidelines for your area.</p>
+                    <a href="/Services/Waste" class="btn btn-custom w-100">Learn More</a>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="faded-card p-3 text-center">
+                    <h4>Water Services</h4>
+                    <p>Check your water supply status and report leaks.</p>
+                    <a href="/Services/Water" class="btn btn-custom w-100">Learn More</a>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="faded-card p-3 text-center">
+                    <h4>Road Maintenance</h4>
+                    <p>Report potholes and view ongoing roadworks.</p>
+                    <a href="/Services/Roads" class="btn btn-custom w-100">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="announcements my-5 w-100">
+        <h2 class="text-center mb-4">Latest Announcements</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="faded-card p-3">
+                    <ul class="text-left">
+                        <li><strong>12 Sep 2025:</strong> Water supply interruption in District 6.</li>
+                        <li><strong>10 Sep 2025:</strong> New waste collection schedule released.</li>
+                        <li><strong>08 Sep 2025:</strong> Public library opening hours updated.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="stats my-5 w-100 text-center">
+        <h2>City Statistics</h2>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-3 mb-3">
+                <div class="faded-card p-3">
+                    <h3>1500+</h3>
+                    <p>Requests Processed</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="faded-card p-3">
+                    <h3>45</h3>
+                    <p>Ongoing Projects</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="faded-card p-3">
+                    <h3>30</h3>
+                    <p>Announcements Published</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </div>
+
+
+<footer class="mt-5 p-4 text-center faded-card">
+    <p>Contact us: info@capetown.gov.za | +27 21 400 1234</p>
+    <p>
+        <a href="#">Facebook</a> |
+        <a href="#">Twitter</a> |
+        <a href="#">Instagram</a>
+    </p>
+</footer>
 
 <style>
     body.index-page {
@@ -59,13 +146,17 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 10vh;
+        margin-top: 5vh;
         color: white;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
 
+    h2 {
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    }
+
     .faded-card {
-        background-color: rgba(255, 255, 255, 0.75);
+        background-color: rgba(255, 255, 255, 0.85);
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         display: flex;
@@ -74,7 +165,9 @@
     }
 
         .faded-card h3,
-        .faded-card p {
+        .faded-card h4,
+        .faded-card p,
+        .faded-card ul {
             color: black;
             text-shadow: none;
         }
@@ -97,4 +190,9 @@
             background-color: #e0e0e0;
             transform: scale(1.05);
         }
+
+    ul {
+        padding-left: 1rem;
+        margin: 0;
+    }
 </style>
