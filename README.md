@@ -2,8 +2,8 @@
 A simple web app to report municipal issues in Cape Town, track progress, and view recent reports.
 
 # Features
--Submit issues with location, category, description, and optional media.
--Dynamic progress bar shows form completion.
+- Submit issues with location, category, description, and optional media.
+- Dynamic progress bar shows form completion.
 
 # Technologies
 - Backend: ASP.NET Core MVC
