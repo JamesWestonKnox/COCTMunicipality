@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<COCTMunicipality.Models.Issue>
+@{
     ViewData["Title"] = "COCT - Report Issue";
     ViewData["BodyClass"] = "index-page";
 }
@@ -97,19 +98,13 @@
             <div class="card faded-card flex-fill p-3 text-start">
                 <h3 class="card-title mb-3 text-center">Recent Issues</h3>
                 <ul>
-                    <li><strong>12 Sep 2025:</strong> Pothole reported on Main Street, resolved.</li>
-                    <li><strong>10 Sep 2025:</strong> Streetlight outage in District 6.</li>
-                    <li><strong>08 Sep 2025:</strong> Garbage collection delay in Zone 3.</li>
+                    @foreach (var issue in Model)
+                    {
+                        <li>
+                            <strong>@issue.ReportedAt.ToString("dd MMM yyyy"):</strong> @issue.Description (@issue.Location)
+                        </li>
+                    }
                 </ul>
-            </div>
-        </div>
-
-        <div class="col-md-4 d-flex">
-            <div class="card faded-card flex-fill p-3 text-center">
-                <h3 class="card-title mb-3">Quick Links</h3>
-                <a href="/Status/ViewStatus" class="btn btn-custom m-1 w-100">Check Request Status</a>
-                <a href="/Announcements/ViewAnnouncements" class="btn btn-custom m-1 w-100">View Announcements</a>
-                <a href="/Services/Waste" class="btn btn-custom m-1 w-100">Waste Collection Info</a>
             </div>
         </div>
 
