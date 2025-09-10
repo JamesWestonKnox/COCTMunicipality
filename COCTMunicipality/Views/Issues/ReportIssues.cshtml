@@ -13,28 +13,61 @@
             <div class="card faded-card flex-fill">
                 <div class="card-body d-flex flex-column p-4">
                     <h3 class="card-title mb-4 text-center">Submit Your Report</h3>
-                    <form method="post" action="/Home/SubmitReport" enctype="multipart/form-data">
+                    <form method="post" action="/Issues/SubmitReport" enctype="multipart/form-data">
                         <div class="mb-3 text-start">
-                            <label for="location" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="location" name="location" placeholder="Enter location of issue" required>
+                            <label for="location" class="form-label">Location (Zone)</label>
+                            <select class="form-select" id="location" name="location" required>
+                                <option value="" disabled selected>Select a zone</option>
+                                <option value="Atlantic Seaboard">Atlantic Seaboard</option>
+                                <option value="Cape Flats">Cape Flats</option>
+                                <option value="City Bowl">City Bowl</option>
+                                <option value="False Bay">False Bay</option>
+                                <option value="Helderberg">Helderberg</option>
+                                <option value="Khayelitsha">Khayelitsha</option>
+                                <option value="Mitchells Plain">Mitchells Plain</option>
+                                <option value="Northern Suburbs">Northern Suburbs</option>
+                                <option value="Southern Suburbs">Southern Suburbs</option>
+                                <option value="South Peninsula">South Peninsula</option>
+                                <option value="Table Bay">Table Bay</option>
+                                <option value="West Coast">West Coast</option>
+                            </select>
                         </div>
                         <div class="mb-3 text-start">
                             <label for="category" class="form-label">Category</label>
                             <select class="form-select" id="category" name="category" required>
                                 <option value="" disabled selected>Select a category</option>
-                                <option value="sanitation">Sanitation</option>
-                                <option value="roads">Roads</option>
-                                <option value="utilities">Utilities</option>
-                                <option value="other">Other</option>
+                                <option value="Sanitation">Sanitation</option>
+                                <option value="Roads & Transport">Roads & Transport</option>
+                                <option value="Utilities">Utilities</option>
+                                <option value="Waste Management">Waste Management</option>
+                                <option value="Parks & Recreation">Parks & Recreation</option>
+                                <option value="Housing & Buildings">Housing & Buildings</option>
+                                <option value="Health & Safety">Health & Safety</option>
+                                <option value="Environmental Issues">Environmental Issues</option>
+                                <option value="Law Enforcement & Security">Law Enforcement & Security</option>
+                                <option value="Animal Control">Animal Control</option>
+                                <option value="Fire & Emergency Services">Fire & Emergency Services</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div class="mb-3 text-start">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="5" placeholder="Provide a detailed description" required></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="5"
+                                      placeholder="Provide a detailed description" required></textarea>
                         </div>
                         <div class="mb-3 text-start">
                             <label for="media" class="form-label">Attach Media (optional)</label>
                             <input class="form-control" type="file" id="media" name="media" accept="image/*,application/pdf">
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label class="form-label">Engagement Progress</label>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 30%;"
+                                     aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                                    30%
+                                </div>
+                            </div>
+                            <small class="text-muted">This shows the progress of your request after submission.</small>
                         </div>
                         <div class="d-flex justify-content-center gap-3 mt-4">
                             <a href="/" class="btn btn-custom">Back</a>
@@ -165,5 +198,17 @@
 
     .faded-card ul li {
         margin-bottom: 0.5rem;
+    }
+
+    .progress {
+        height: 25px;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #e0e0e0;
+    }
+
+    .progress-bar {
+        font-weight: bold;
+        text-align: center;
     }
 </style>
