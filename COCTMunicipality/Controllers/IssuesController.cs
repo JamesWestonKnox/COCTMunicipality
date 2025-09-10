@@ -6,9 +6,20 @@ namespace COCTMunicipality.Controllers
 {
     public class IssuesController : Controller
     {
+        /// <summary>
+        /// Represents the service used to manage and interact with issues.
+        /// </summary>
+        private readonly IssueService issueService;
 
-        private static IssueService issueService = new IssueService();
+        public IssuesController(IssueService _issueService)
+        {
+            issueService = _issueService;
+        }
 
+        /// <summary>
+        /// Displays the issue reporting page with recent issues. 
+        /// </summary>
+        /// <returns>Report Issue view with recent issues list</returns>
         public IActionResult ReportIssues()
         {
             ViewData["BodyClass"] = "index-page";
@@ -16,6 +27,14 @@ namespace COCTMunicipality.Controllers
             return View(recentIssues);
         }
 
+        /// <summary>
+        /// Handles the submission of a new issue report.
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="category"></param>
+        /// <param name="description"></param>
+        /// <param name="media"></param>
+        /// <returns>To return issues view</returns>
         [HttpPost]
         public IActionResult SubmitReport(string location, string category, string description, IFormFile media)
         {

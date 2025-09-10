@@ -1,29 +1,49 @@
 using COCTMunicipality.Models;
+using COCTMunicipality.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace COCTMunicipality.Controllers
 {
+    /// <summary>
+    /// Represents the controller responsible for handling requests to the home page of the application.
+    /// </summary>
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IssueService issueService;
+        public HomeController(IssueService _issueService)
         {
-            _logger = logger;
+            issueService = _issueService;
         }
 
+        /// <summary>
+        /// Displays the home page with a summary of recent issues and the total issue count.
+        /// </summary>
         public IActionResult Index()
         {
             ViewData["BodyClass"] = "index-page";
-            return View();
+
+            // Fetch the 5 most recent issues
+            var recentIssues = issueService.GetAllIssues().OrderByDescending(i => i.ReportedAt).Take(5).ToList();
+
+            // Prepare the view model
+            var model = new HomeViewModel
+            {
+                RecentIssues = recentIssues,
+                TotalIssues = issueService.Count()
+            };
+
+            return View(model);
         }
 
+    }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+    /// <summary>
+    /// Represents the data model for the home view, including recent issues and their total count.
+    /// </summary>
+    public class HomeViewModel
+    {
+        public List<Issue> RecentIssues { get; set; } = new List<Issue>();
+        public int TotalIssues { get; set; } = 0;
     }
 }

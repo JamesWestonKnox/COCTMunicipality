@@ -1,5 +1,8 @@
 ﻿namespace COCTMunicipality.Models
 {
+    /// <summary>
+    /// Represents a reported issue in the municipality.
+    /// </summary>
     public class Issue
     {
         public string Location { get; set; }

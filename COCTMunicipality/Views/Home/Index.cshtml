@@ -1,4 +1,5 @@
-﻿@{
+﻿@model COCTMunicipality.Controllers.HomeViewModel
+@{
     ViewData["Title"] = "COCT";
     ViewData["BodyClass"] = "index-page";
 }
@@ -58,28 +59,39 @@
                 <div class="faded-card p-3 text-center">
                     <h4>Water Services</h4>
                     <p>Check your water supply status and report leaks.</p>
-                    <a  class="btn btn-custom w-100">Learn More</a>
+                    <a class="btn btn-custom w-100">Learn More</a>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
                 <div class="faded-card p-3 text-center">
                     <h4>Road Maintenance</h4>
                     <p>Report potholes and view ongoing roadworks.</p>
-                    <a  class="btn btn-custom w-100">Learn More</a>
+                    <a class="btn btn-custom w-100">Learn More</a>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="announcements my-5 w-100">
-        <h2 class="text-center mb-4">Latest Announcements</h2>
+        <h2 class="text-center mb-4">Latest Requests</h2>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="faded-card p-3">
                     <ul class="text-start mb-0">
-                        <li><strong>12 Sep 2025:</strong> Water supply interruption in District 6.</li>
-                        <li><strong>10 Sep 2025:</strong> New waste collection schedule released.</li>
-                        <li><strong>08 Sep 2025:</strong> Public library opening hours updated.</li>
+                        @if (Model.RecentIssues != null && Model.RecentIssues.Any())
+                        {
+                            foreach (var issue in Model.RecentIssues)
+                            {
+                                <li>
+                                    <strong>@issue.ReportedAt.ToString("dd MMM yyyy"):</strong>
+                                    @issue.Description (@issue.Location)
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>No recent requests available.</li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -89,10 +101,10 @@
     <section class="stats my-5 w-100 text-center">
         <h2>City Statistics</h2>
         <div class="row justify-content-center mt-4">
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3 mb-3">
                 <div class="faded-card p-3">
-                    <h3>0</h3>
-                    <p>Requests Processed</p>
+                    <h3>@Model.TotalIssues</h3>
+                    <p>Current Requests</p>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
@@ -151,7 +163,7 @@
     }
 
     .row.justify-content-center {
-        margin-bottom: 3rem; 
+        margin-bottom: 3rem;
     }
 
     h2 {
