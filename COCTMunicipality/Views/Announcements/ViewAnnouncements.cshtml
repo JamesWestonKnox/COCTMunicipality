@@ -1,6 +1,6 @@
-﻿@model List<COCTMunicipality.Models.Issue>
+﻿@model List<COCTMunicipality.Models.Announcement>
 @{
-    ViewData["Title"] = "COCT - Announcements";
+    ViewData["Title"] = "COCT - Announcements & Events";
     ViewData["BodyClass"] = "index-page";
 }
 
@@ -12,18 +12,28 @@
         <div class="col-md-4 mb-4">
             <div class="card faded-card h-100">
                 <div class="card-body p-4">
-                    <h4 class="mb-3 text-center">Search & Filter</h4>
+                    <h4 class="mb-3 text-center">Search & Filter Events</h4>
                     <div class="mb-3">
                         <input type="text" id="searchInput" class="form-control" placeholder="Search by name, category or date...">
                     </div>
                     <div class="mb-3">
                         <select id="filterCategory" class="form-select">
                             <option value="">Filter by Category</option>
+                            <option>Community</option>
+                            <option>Health</option>
+                            <option>Environment</option>
+                            <option>Transport</option>
+                            <option>Education</option>
+                            <option>Safety</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <select id="sortValue" class="form-select">
                             <option value="">Sort by</option>
+                            <option value="dateAsc">Date (Ascending)</option>
+                            <option value="dateDesc">Date (Descending)</option>
+                            <option value="nameAsc">Name (A–Z)</option>
+                            <option value="nameDesc">Name (Z–A)</option>
                         </select>
                     </div>
                     <div class="d-flex justify-content-center gap-3 mt-4">
@@ -33,10 +43,11 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-8 mb-4">
             <div class="card faded-card">
                 <div class="card-body p-4">
-                    <h4 class="mb-3 text-center text-dark">Events and Announcements</h4>
+                    <h4 class="mb-3 text-center text-dark">Events</h4>
                     <table class="table table-striped table-hover align-middle">
                         <thead class="table-light">
                             <tr>
@@ -47,7 +58,30 @@
                                 <th>Description</th>
                             </tr>
                         </thead>
-                        <tbody id="announcementTable">
+                        <tbody id="eventsTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12 mb-4">
+            <div class="card faded-card">
+                <div class="card-body p-4">
+                    <h4 class="mb-3 text-center text-dark">Announcements</h4>
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Location</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="announcementsTable">
+
                         </tbody>
                     </table>
                 </div>
@@ -82,13 +116,8 @@
         height: 100%;
     }
 
-        .faded-card h3,
-        .faded-card h4,
-        .faded-card p,
-        .faded-card ul,
-        .form-label {
+        .faded-card h4 {
             color: black;
-            text-shadow: none;
         }
 
     .btn-custom {
@@ -103,19 +132,6 @@
         .btn-custom:hover {
             background-color: #e0e0e0;
             transform: scale(1.05);
-        }
-
-    .btn-outline-light {
-        border: 1px solid #ccc;
-        color: black;
-        padding: 10px 20px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-    }
-
-        .btn-outline-light:hover {
-            background-color: #e0e0e0;
-            color: black;
         }
 
     .form-control, .form-select {

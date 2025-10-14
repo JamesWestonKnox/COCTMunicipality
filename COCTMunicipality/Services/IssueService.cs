@@ -1,6 +1,5 @@
 ﻿using COCTMunicipality.Models;
 
-
 namespace COCTMunicipality.Services
 {
     public class IssueService
