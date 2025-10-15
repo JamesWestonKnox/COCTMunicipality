@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IssueService>();
 builder.Services.AddSingleton<EventService>();
+builder.Services.AddSingleton<AnnouncementService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

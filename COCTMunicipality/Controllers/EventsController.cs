@@ -1,18 +1,20 @@
-﻿using COCTMunicipality.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using COCTMunicipality.Models;
 
+using COCTMunicipality.Services;
+using Microsoft.AspNetCore.Mvc;
 namespace COCTMunicipality.Controllers
 {
     public class EventsController : Controller
     {
         /// <summary>
-        /// Represents the service used to manage and interact with events.
+        /// Represents the services used to manage and interact with events and announcements.
         /// </summary>
         private readonly EventService eventService;
-
-        public EventsController(EventService _eventService)
+        private readonly AnnouncementService announcementService;
+        public EventsController(EventService _eventService, AnnouncementService _announcementService)
         {
             eventService = _eventService;
+            announcementService = _announcementService;
         }
 
         /// <summary>
@@ -22,8 +24,12 @@ namespace COCTMunicipality.Controllers
         public IActionResult ViewEvents()
         {
             ViewData["BodyClass"] = "index-page";
-            var events = eventService.FetchAllEvents();
-            return View(events);
+            var viewModel = new EventsAndAnnouncementsViewModel
+            {
+                events = eventService.FetchAllEvents(),
+                announcements = announcementService.FetchAllAnnouncements()
+            };
+            return View(viewModel);
         }
 
         /// <summary>

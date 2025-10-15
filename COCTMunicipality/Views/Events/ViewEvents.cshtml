@@ -1,4 +1,4 @@
-﻿@model List<COCTMunicipality.Models.Event>
+﻿@model COCTMunicipality.Models.EventsAndAnnouncementsViewModel
 @{
     ViewData["Title"] = "COCT - Events & Announcements";
     ViewData["BodyClass"] = "index-page";
@@ -39,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody id="eventsTable">
-                                @foreach (var eventItem in Model)
+                                @foreach (var eventItem in Model.events)
                                 {
                                     <tr class="align-middle">
                                         <td>@eventItem.Name</td>
@@ -63,12 +63,19 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Name</th>
-                                    <th>Category</th>
+                                    <th>Location</th>
                                     <th>Date</th>
-                                    <th>Description</th>
                                 </tr>
                             </thead>
                             <tbody id="announcementsTable">
+                                @foreach (var announcement in Model.announcements)
+                                {
+                                    <tr class="align-middle">
+                                        <td>@announcement.Name</td>
+                                        <td>@announcement.Location</td>
+                                        <td>@announcement.Date.ToString("yyyy-MM-dd")</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

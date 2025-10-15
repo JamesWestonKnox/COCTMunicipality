@@ -16,13 +16,13 @@ namespace COCTMunicipality.Services
         /// </summary>
         public EventService()
         {
-            FillExampleData();
+            FillExampleEventData();
         }
 
         /// <summary>
         /// Method to return all events as a list.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of events</returns>
         public List<Event> FetchAllEvents()
         {
             return events.Values.ToList();
@@ -62,7 +62,7 @@ namespace COCTMunicipality.Services
         /// <summary>
         /// Method to populate events dictionary with example events.
         /// </summary>
-        public void FillExampleData()
+        public void FillExampleEventData()
         {
             var exampleEvents = new List<Event>
             {
