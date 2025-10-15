@@ -27,7 +27,8 @@ namespace COCTMunicipality.Controllers
             var viewModel = new EventsAndAnnouncementsViewModel
             {
                 events = eventService.FetchAllEvents(),
-                announcements = announcementService.FetchAllAnnouncements()
+                announcements = announcementService.FetchAllAnnouncements(),
+                categories = eventService.FetchAllEventCategories()
             };
             return View(viewModel);
         }

@@ -7,5 +7,6 @@
     {
         public List<Event> events { get; set; }
         public List<Announcement> announcements { get; set; }
+        public List<string> categories { get; set; }
     }
 }

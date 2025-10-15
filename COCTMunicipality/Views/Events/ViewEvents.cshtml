@@ -16,12 +16,21 @@
                         <h5 class="mb-3 text-center text-dark">Search & Filter</h5>
                         <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap mb-3">
                             <input type="text" id="searchInput" class="form-control search-input" placeholder="Search by name, category or date...">
+
                             <select id="filterCategory" class="form-select filter-select">
                                 <option value="">Filter by Category</option>
+                                @foreach (var category in Model.categories)
+                                {
+                                    <option value="@category">@category</option>
+                                }
                             </select>
+
                             <select id="sortValue" class="form-select filter-select">
                                 <option value="">Sort by</option>
+                                <option value="name">Name</option>
+                                <option value="date">Date</option>
                             </select>
+
                         </div>
                         <div class="d-flex justify-content-center gap-3 mb-4">
                             <a href="/" class="btn btn-custom">Back</a>
@@ -108,6 +117,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -127,6 +137,7 @@
         </div>
     </div>
 </div>
+
 <style>
     body.index-page {
         background-image: url('@Url.Content("~/images/backgrounds/backgroundIndex.jpg")');
@@ -219,91 +230,108 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        function formatDate(dateValue) {
-            if (!dateValue) return "N/A";
-            try {
-                let date = new Date(dateValue);
-                if (isNaN(date)) {
-                    const match = /Date\((\d+)\)/.exec(dateValue);
-                    if (match) date = new Date(parseInt(match[1]));
+            function formatDate(dateValue) {
+                if (!dateValue) return "N/A";
+                try {
+                    let date = new Date(dateValue);
+                    if (isNaN(date)) {
+                        const match = /Date\((\d+)\)/.exec(dateValue);
+                        if (match) date = new Date(parseInt(match[1]));
+                    }
+                    return date.toISOString().split('T')[0];
+                } catch {
+                    return dateValue;
                 }
-                return date.toISOString().split('T')[0];
-            } catch {
-                return dateValue;
             }
-        }
-        function refreshRecentEvents() {
-            $.get('@Url.Action("GetLastViewedEvent", "Events")', function(data) {
-                var tableBody = $('#recentEventsTable');
-                tableBody.empty();
-                data.forEach(function(ev) {
-                    var row = `<tr class="align-middle">
-                                    <td>${ev.name}</td>
-                                    <td>${ev.category}</td>
-                                    <td>${formatDate(ev.date)}</td>
-                               </tr>`;
-                tableBody.append(row);
-                });
-            });
-        }
 
-        refreshRecentEvents();
-
-        $('#searchInput').on('input', function () {
-            var searchTerm = $(this).val();
-            $.ajax({
-                url: '@Url.Action("SearchEvents", "Events")',
-                type: 'GET',
-                data: { searchTerm: searchTerm },
-                success: function (data) {
-                    var tableBody = $('#eventsTable');
+            function refreshRecentEvents() {
+                $.get('@Url.Action("GetLastViewedEvent", "Events")', function(data) {
+                    var tableBody = $('#recentEventsTable');
                     tableBody.empty();
-                    data.forEach(function (ev) {
-                        var row = `<tr class="align-middle event-row"
-                                        data-id="${ev.eventId}"
-                                        data-name="${ev.name}"
-                                        data-category="${ev.category}"
-                                        data-date="${formatDate(ev.date)}"
-                                        data-location="${ev.location}"
-                                        data-description="${ev.description || ''}">
+                    data.forEach(function(ev) {
+                        var row = `<tr class="align-middle">
                                         <td>${ev.name}</td>
                                         <td>${ev.category}</td>
                                         <td>${formatDate(ev.date)}</td>
-                                        <td>${ev.location}</td>
-                                    </tr>`;
-                        tableBody.append(row);
+                                   </tr>`;
+                    tableBody.append(row);
                     });
-                }
-            });
-        });
+                });
+            }
 
-        $('#eventsTable').on('click', '.event-row', function () {
-            var row = $(this);
-            var eventId = row.data('id');
-            
-            $.post('@Url.Action("AddLastViewedEvent", "Events")', { id: eventId }, function() 
+            refreshRecentEvents();
+
+            function fetchEvents() {
+                var searchTerm = $('#searchInput').val();
+                var selectedCategory = $('#filterCategory').val();
+                var sortValue = $('#sortValue').val();
+
+                $.ajax({
+                    url: '@Url.Action("SearchEvents", "Events")',
+                    type: 'GET',
+                    data: { searchTerm: searchTerm },
+                    success: function(data) {
+                        if (selectedCategory) {
+                            data = data.filter(ev => ev.category.toLowerCase() === selectedCategory.toLowerCase());
+                        }
+
+                        if (sortValue) {
+                            data.sort((a, b) => {
+                                if (sortValue === 'name') return a.name.localeCompare(b.name);
+                                if (sortValue === 'date') return new Date(a.date) - new Date(b.date);
+                                return 0;
+                            });
+                        }
+                        var tableBody = $('#eventsTable');
+                        tableBody.empty();
+                        data.forEach(ev => {
+                            var row = `<tr class="align-middle event-row"
+                                            data-id="${ev.eventId}"
+                                            data-name="${ev.name}"
+                                            data-category="${ev.category}"
+                                            data-date="${formatDate(ev.date)}"
+                                            data-location="${ev.location}"
+                                            data-description="${ev.description || ''}">
+                                            <td>${ev.name}</td>
+                                            <td>${ev.category}</td>
+                                            <td>${formatDate(ev.date)}</td>
+                                            <td>${ev.location}</td>
+                                        </tr>`;
+                            tableBody.append(row);
+                        });
+                    }
+                });
+            }
+
+            $('#searchInput, #filterCategory, #sortValue').on('input change', fetchEvents);
+
+            $('#eventsTable').on('click', '.event-row', function () {
+                var row = $(this);
+                var eventId = row.data('id');
+
+                $.post('@Url.Action("AddLastViewedEvent", "Events")', { id: eventId }, function()
+                {
+                    refreshRecentEvents();
+                });
+
+                $('#modalEventName').text(row.data('name'));
+                $('#modalEventCategory').text(row.data('category'));
+                $('#modalEventDate').text(row.data('date'));
+                $('#modalEventLocation').text(row.data('location'));
+                $('#modalEventDescription').text(row.data('description') || 'No description available.');
+
+                var modal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+                modal.show();
+            });
+
+            $('#resetBtn').on('click', function()
             {
-                refreshRecentEvents();
+                $('#searchInput').val('');
+                $('#filterCategory').val('');
+                $('#sortValue').val('');
+                $('#searchInput').trigger('input');
             });
-            
-            $('#modalEventName').text(row.data('name'));
-            $('#modalEventCategory').text(row.data('category'));
-            $('#modalEventDate').text(row.data('date'));
-            $('#modalEventLocation').text(row.data('location'));
-            $('#modalEventDescription').text(row.data('description') || 'No description available.');
-            
-            var modal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
-            modal.show();
-        });
-
-        $('#resetBtn').on('click', function() 
-        {
-            $('#searchInput').val('');
-            $('#filterCategory').val('');
-            $('#sortValue').val('');
-            $('#searchInput').trigger('input');
-        });
-});
+    });
 </script>

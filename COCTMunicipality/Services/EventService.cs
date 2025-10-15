@@ -31,7 +31,7 @@ namespace COCTMunicipality.Services
         /// <summary>
         /// Method to return all event categories for filtering dropdown menu.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of event categories</returns>
         public List<string> FetchAllEventCategories()
         {
             return eventCategories.ToList();
@@ -40,7 +40,7 @@ namespace COCTMunicipality.Services
         /// <summary>
         ///  Method to search events by name, category or date.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of mathcing events</returns>
         public List<Event> SearchEvents(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
@@ -64,19 +64,14 @@ namespace COCTMunicipality.Services
         {
             if (!events.TryGetValue(eventId, out var ev)) return;
 
-            // Convert stack to list for manipulation
             var tempList = lastViewedEvents.ToList();
 
-            // Remove the event if it already exists
             tempList.RemoveAll(e => e.EventId == eventId);
 
-            // Clear the stack
             lastViewedEvents.Clear();
 
-            // Push the new event first (it will be on top)
             lastViewedEvents.Push(ev);
 
-            // Push back the rest (up to 2 more), maintaining order
             int count = 0;
             foreach (var item in tempList)
             {
@@ -92,8 +87,6 @@ namespace COCTMunicipality.Services
         /// <returns>List of up to 3 events</returns>
         public List<Event> GetLastViewedEvents()
         {
-            // Return as list in the order they were viewed (most recent first)
-            // Stack.ToList() returns items in the order they would be popped (LIFO)
             return lastViewedEvents.ToList();
         }
 
