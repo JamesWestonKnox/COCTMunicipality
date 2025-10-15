@@ -2,13 +2,13 @@
 
 namespace COCTMunicipality.Controllers
 {
-    public class AnnouncementsController : Controller
+    public class EventController : Controller
     {
 
         /// <summary>
-        /// Displays the announcements page with all announcements.
+        /// Displays the events and announcements page with all events and announcements.
         /// </summary>
-        /// <returns>List of all announcements</returns>
+        /// <returns>List of all announcements and list of all events</returns>
         public IActionResult ViewAnnouncements()
         {
             ViewData["BodyClass"] = "index-page";

@@ -1,6 +1,6 @@
 ﻿namespace COCTMunicipality.Services
 {
-    public class AnnouncementService
+    public class EventService
     {
     }
 }
