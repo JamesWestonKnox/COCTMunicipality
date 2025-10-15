@@ -72,7 +72,8 @@ namespace COCTMunicipality.Services
                     Name = "Cape Town Jazz Festival",
                     Category = "Music",
                     Date = new DateTime(2025, 11, 4),
-                    Location = "Cape Town Convention Center"
+                    Location = "Cape Town Convention Center",
+                    Description = "The Cape Town Jazz Festival is an annual music festival held in Cape Town, South Africa. It is one of the largest jazz festivals in Africa and features a diverse lineup of local and international jazz artists."
                 },
                 new Event
                 {
@@ -80,7 +81,8 @@ namespace COCTMunicipality.Services
                     Name = "Cape Town Marathon",
                     Category = "Sports",
                     Date = new DateTime(2025, 10, 18),
-                    Location = "City Center"
+                    Location = "City Center",
+                    Description = "Cape Town annual marathon"
                 },
                 new Event
                 {
@@ -88,7 +90,8 @@ namespace COCTMunicipality.Services
                     Name = "Community Cleanup Day",
                     Category = "Volunteer",
                     Date = new DateTime(2025, 10, 23),
-                    Location = "District Center"
+                    Location = "District Center",
+                    Description = "Join us for a community cleanup day to help keep our city clean and beautiful!"
                 },
                 new Event
                 {
@@ -96,7 +99,8 @@ namespace COCTMunicipality.Services
                     Name = "Kirstenbosch Summer Concert",
                     Category = "Concert",
                     Date = new DateTime(2025, 11, 15),
-                    Location = "Kirstenbosch Botanical Gardens"
+                    Location = "Kirstenbosch Botanical Gardens",
+                    Description = "Enjoy live music in the beautiful Kirstenbosch Botanical Gardens."
                 },
                 new Event
                 {
@@ -104,7 +108,8 @@ namespace COCTMunicipality.Services
                     Name = "Springboks VS Wallabies Rugby",
                     Category = "Sports",
                     Date = new DateTime(2025, 8, 23),
-                    Location = "DHL Stadium"
+                    Location = "DHL Stadium",
+                    Description = "Watch the thrilling rugby match between the Springboks and the Wallabies!"
                 },
                 new Event
                 {
@@ -112,7 +117,8 @@ namespace COCTMunicipality.Services
                     Name = "Cape Town Art Fair",
                     Category = "Art",
                     Date = new DateTime(2025, 6, 16),
-                    Location = "Cape Town Art Gallery"
+                    Location = "Cape Town Art Gallery",
+                    Description = "Explore contemporary art from local and international artists at the Cape Town Art Fair."
                 },
                 new Event
                 {
@@ -120,7 +126,8 @@ namespace COCTMunicipality.Services
                     Name = "Heritage Day Braai Festival",
                     Category = "Festival",
                     Date = new DateTime(2025, 9, 24),
-                    Location = "Greenmarket Square"
+                    Location = "Greenmarket Square",
+                    Description = "Celebrate Heritage Day with a traditional South African braai festival!"
                 },
                 new Event
                 {
@@ -128,7 +135,8 @@ namespace COCTMunicipality.Services
                     Name = "Community Safety Workshop",
                     Category = "Safety",
                     Date = new DateTime(2026, 2, 5),
-                    Location = "Local Community Halls"
+                    Location = "Local Community Halls",
+                    Description = "Join us for a workshop on community safety and crime prevention strategies."
                 },
                 new Event
                 {
@@ -136,7 +144,8 @@ namespace COCTMunicipality.Services
                     Name = "Cape Town Green Energy Convention",
                     Category = "Enviroment",
                     Date = new DateTime(2025, 11, 23),
-                    Location = "Cape Town Convention Center"
+                    Location = "Cape Town Convention Center",
+                    Description = "Join industry leaders and experts to discuss the latest trends and innovations in green energy."
                 },
                 new Event
                 {
@@ -144,7 +153,8 @@ namespace COCTMunicipality.Services
                     Name = "Cape Town Book Drive",
                     Category = "Education",
                     Date = new DateTime(2025, 6, 6),
-                    Location = "City Center"
+                    Location = "City Center",
+                    Description = "Donate your gently used books to support literacy and education in our community."
                 },
                 new Event
                 {
@@ -152,7 +162,8 @@ namespace COCTMunicipality.Services
                     Name = "Cape Town Food and Wine Festival",
                     Category = "Food",
                     Date = new DateTime(2025, 5, 23),
-                    Location = "Orangezicht Farmers Market"
+                    Location = "Orangezicht Farmers Market",
+                    Description = "Experience the best of Cape Town's culinary scene with food and wine tastings from top chefs and wineries."
                 },
                 new Event
                 {
@@ -160,7 +171,8 @@ namespace COCTMunicipality.Services
                     Name = "Cape Town Hiking Day",
                     Category = "Sports",
                     Date = new DateTime(2025, 9, 1),
-                    Location = "Table Mountain"
+                    Location = "Table Mountain",
+                    Description = "Join us for a day of hiking and exploring the beautiful trails of Table Mountain."
                 },
                 new Event
                 {
@@ -168,7 +180,8 @@ namespace COCTMunicipality.Services
                     Name = "Cape Town Cycle Tour",
                     Category = "Sports",
                     Date = new DateTime(2025, 3, 9),
-                    Location = "The Grand Parade"
+                    Location = "The Grand Parade",
+                    Description = "Annual cycling Race"
                 },
                 new Event
                 {
@@ -176,7 +189,8 @@ namespace COCTMunicipality.Services
                     Name = "Feastival",
                     Category = "Festival",
                     Date = new DateTime(2025, 9, 27),
-                    Location = "Makers Landing V&A Waterfront"
+                    Location = "Makers Landing V&A Waterfront",
+                    Description = "A food festival showcasing local cuisine and international flavors."
                 },
                 new Event
                 {
@@ -184,7 +198,8 @@ namespace COCTMunicipality.Services
                     Name = "Cape Town Youth Sports Day",
                     Category = "Sports",
                     Date = new DateTime(2025, 12, 10),
-                    Location = "Athlone Stadium"
+                    Location = "Athlone Stadium",
+                    Description = "A day dedicated to promoting youth sports and healthy living."
                 },
             };
             foreach (var ev in exampleEvents)

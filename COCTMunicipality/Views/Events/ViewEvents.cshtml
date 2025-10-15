@@ -41,7 +41,13 @@
                             <tbody id="eventsTable">
                                 @foreach (var eventItem in Model.events)
                                 {
-                                    <tr class="align-middle">
+                                    <tr class="align-middle event-row"
+                                        data-id="@eventItem.EventId"
+                                        data-name="@eventItem.Name"
+                                        data-category="@eventItem.Category"
+                                        data-date="@eventItem.Date.ToString("yyyy-MM-dd")"
+                                        data-location="@eventItem.Location"
+                                        data-description="@eventItem.Description">
                                         <td>@eventItem.Name</td>
                                         <td>@eventItem.Category</td>
                                         <td>@eventItem.Date.ToString("yyyy-MM-dd")</td>
@@ -55,7 +61,7 @@
             </div>
         </div>
         <div class="col-md-4 mb-4">
-            <div class="card faded-card announcements-card" style="height: 400px;">
+            <div class="card faded-card announcements-card" style="height: 350px;">
                 <div class="card-body p-4 d-flex flex-column" style="height: 100%;">
                     <h4 class="mb-3 text-center text-dark">Announcements</h4>
                     <div class="table-container flex-grow-1 overflow-auto">
@@ -81,10 +87,46 @@
                     </div>
                 </div>
             </div>
+            <div class="card faded-card recent-events-card mt-4" style="height: 350px;">
+                <div class="card-body p-4 d-flex flex-column" style="height: 100%;">
+                    <h4 class="mb-3 text-center text-dark">Recently Viewed Events</h4>
+                    <div class="table-container flex-grow-1 overflow-auto">
+                        <table class="table table-striped table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentEventsTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEventName">Event Name</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Category:</strong> <span id="modalEventCategory"></span></p>
+                <p><strong>Date:</strong> <span id="modalEventDate"></span></p>
+                <p><strong>Location:</strong> <span id="modalEventLocation"></span></p>
+                <p><strong>Description:</strong> <span id="modalEventDescription">No description available.</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
     body.index-page {
         background-image: url('@Url.Content("~/images/backgrounds/backgroundIndex.jpg")');
@@ -174,6 +216,7 @@
     OpenAI, 2025. ChatGPT [Computer program]. Version GPT-5 mini.
     Available at: https://chat.openai.com
 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -187,16 +230,36 @@
                     var tableBody = $('#eventsTable');
                     tableBody.empty();
                     data.forEach(function (ev) {
-                        var row = `<tr>
-                            <td>${ev.name}</td>
-                            <td>${ev.category}</td>
-                            <td>${new Date(ev.date).toISOString().split('T')[0]}</td>
-                            <td>${ev.location}</td>
-                        </tr>`;
+                        var row = `<tr class="align-middle event-row"
+                                        data-id="${ev.id}"
+                                        data-name="${ev.name}"
+                                        data-category="${ev.category}"
+                                        data-date="${new Date(ev.date).toISOString().split('T')[0]}"
+                                        data-location="${ev.location}"
+                                        data-description="${ev.description || ''}">
+                                        <td>${ev.name}</td>
+                                        <td>${ev.category}</td>
+                                        <td>${new Date(ev.date).toISOString().split('T')[0]}</td>
+                                        <td>${ev.location}</td>
+                                    </tr>`;
                         tableBody.append(row);
                     });
                 }
             });
         });
+
+        $('#eventsTable').on('click', '.event-row', function () {
+        var row = $(this);
+
+        $('#modalEventName').text(row.data('name'));
+        $('#modalEventCategory').text(row.data('category'));
+        $('#modalEventDate').text(row.data('date'));
+        $('#modalEventLocation').text(row.data('location'));
+        $('#modalEventDescription').text(row.data('description') || 'No description available.');
+
+        var modal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+        modal.show();
+        });
     });
+
 </script>
