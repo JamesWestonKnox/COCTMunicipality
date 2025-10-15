@@ -5,11 +5,14 @@ namespace COCTMunicipality.Controllers
 {
     public class EventsController : Controller
     {
+        /// <summary>
+        /// Represents the service used to manage and interact with events.
+        /// </summary>
         private readonly EventService eventService;
 
-        public EventsController()
+        public EventsController(EventService _eventService)
         {
-            eventService = new EventService();
+            eventService = _eventService;
         }
 
         /// <summary>
@@ -24,15 +27,17 @@ namespace COCTMunicipality.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Searches for events using searchTerm parameter input
+        /// Passes to script in ViewEvents.cshtml
         /// </summary>
-        /// <returns></returns>
+        /// <returns>JSON array of events</returns>
         [HttpGet]
         public JsonResult SearchEvents(string searchTerm)
         {
             var results = eventService.SearchEvents(searchTerm);
             return Json(results);
         }
+
 
 
     }
