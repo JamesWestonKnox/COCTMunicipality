@@ -116,6 +116,26 @@
             </div>
         </div>
     </div>
+
+    <div class="card faded-card recommended-events-card mt-4" style="height: 350px;">
+        <div class="card-body p-4 d-flex flex-column" style="height: 100%;">
+            <h4 class="mb-3 text-center text-dark">Recommended Events</h4>
+            <div class="table-container flex-grow-1 overflow-auto">
+                <table class="table table-striped table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recommendedEventsTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-hidden="true">
@@ -261,7 +281,23 @@
                 });
             }
 
+            function refreshRecommendedEvents() {
+                $.get('@Url.Action("FindRecommendedEvents", "Events")', function(data) {
+                    var tableBody = $('#recommendedEventsTable');
+                    tableBody.empty();
+                    data.forEach(ev => {
+                        var row = `<tr class="align-middle">
+                                        <td>${ev.name}</td>
+                                        <td>${ev.category}</td>
+                                        <td>${formatDate(ev.date)}</td>
+                                        <td>${ev.location}</td>
+                                   </tr>`;
+                tableBody.append(row);
+            });
+        });
+    }
             refreshRecentEvents();
+            refreshRecommendedEvents();
 
             function fetchEvents() {
                 var searchTerm = $('#searchInput').val();
@@ -305,7 +341,10 @@
                 });
             }
 
-            $('#searchInput, #filterCategory, #sortValue').on('input change', fetchEvents);
+            $('#searchInput, #filterCategory, #sortValue').on('input change', function(){
+                fetchEvents();
+                refreshRecommendedEvents();
+            });
 
             $('#eventsTable').on('click', '.event-row', function () {
                 var row = $(this);

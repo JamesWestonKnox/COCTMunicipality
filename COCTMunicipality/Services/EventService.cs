@@ -10,6 +10,8 @@ namespace COCTMunicipality.Services
         private readonly Dictionary<int, Event> events = new Dictionary<int, Event>();
         private readonly Stack<Event> lastViewedEvents = new Stack<Event>();
         private readonly HashSet<string> eventCategories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, int> categorySearchAmount = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<DateTime, int> dateSearchAmount = new Dictionary<DateTime, int>();
 
         /// <summary>
         /// Calls method to populate example events.
@@ -88,6 +90,47 @@ namespace COCTMunicipality.Services
         public List<Event> GetLastViewedEvents()
         {
             return lastViewedEvents.ToList();
+        }
+
+        /// <summary>
+        /// Method to save a search term to track popular searches.
+        /// </summary>
+        public void SaveSearchTerm(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm)) return;
+
+            searchTerm = searchTerm.Trim().ToLower();
+
+            foreach (var eventItem in events.Values)
+            {
+                if (string.Equals(eventItem.Category, searchTerm, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (!categorySearchAmount.ContainsKey(eventItem.Category))
+                        categorySearchAmount[eventItem.Category] = 0;
+                    categorySearchAmount[eventItem.Category]++;
+                }
+
+                if (eventItem.Date.ToString("yyyy-MM-dd") == searchTerm)
+                {
+                    if (!dateSearchAmount.ContainsKey(eventItem.Date))
+                        dateSearchAmount[eventItem.Date] = 0;
+                    dateSearchAmount[eventItem.Date]++;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Find 3 recommended events based on most searched categories and dates.
+        /// </summary>
+        /// <returns>List of 3 recommened events</returns>
+        public List<Event> FindRecommendedEvents()
+        {
+            var mostSearchedCategories = categorySearchAmount.OrderByDescending(c => c.Value).Select(c => c.Key).Take(3).ToList();
+            var mostSearchedDates = dateSearchAmount.OrderByDescending(d => d.Value).Select(d => d.Key).Take(3).ToList();
+
+            var recommendedEvents = events.Values.Where(e => mostSearchedCategories.Contains(e.Category) || mostSearchedDates.Contains(e.Date)).Take(3).ToList();
+
+            return recommendedEvents;
         }
 
         /// <summary>

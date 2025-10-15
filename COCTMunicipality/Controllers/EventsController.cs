@@ -41,6 +41,7 @@ namespace COCTMunicipality.Controllers
         [HttpGet]
         public JsonResult SearchEvents(string searchTerm)
         {
+            eventService.SaveSearchTerm(searchTerm);
             var results = eventService.SearchEvents(searchTerm);
             return Json(results);
         }
@@ -48,7 +49,6 @@ namespace COCTMunicipality.Controllers
         /// <summary>
         /// Adds an event to the list of recently viewed events.
         /// </summary>
-        /// <returns></returns>
         [HttpPost]
         public IActionResult AddLastViewedEvent(int id)
         {
@@ -67,6 +67,15 @@ namespace COCTMunicipality.Controllers
             return Json(recent);
         }
 
-
+        /// <summary>
+        /// Fethces recommended events based on the user's search history and returns them as JSON.
+        /// </summary>
+        /// <returns>JSON array of recommendations</returns>
+        [HttpGet]
+        public JsonResult FindRecommendedEvents()
+        {
+            var recommendations = eventService.FindRecommendedEvents();
+            return Json(recommendations);
+        }
     }
 }
