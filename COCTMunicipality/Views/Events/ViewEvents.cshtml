@@ -220,6 +220,37 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        function formatDate(dateValue) {
+            if (!dateValue) return "N/A";
+            try {
+                let date = new Date(dateValue);
+                if (isNaN(date)) {
+                    const match = /Date\((\d+)\)/.exec(dateValue);
+                    if (match) date = new Date(parseInt(match[1]));
+                }
+                return date.toISOString().split('T')[0];
+            } catch {
+                return dateValue;
+            }
+        }
+        function refreshRecentEvents() {
+            $.get('@Url.Action("GetLastViewedEvent", "Events")', function(data) {
+                var tableBody = $('#recentEventsTable');
+                tableBody.empty();
+                data.forEach(function(ev) {
+                    var row = `<tr class="align-middle">
+                                    <td>${ev.name}</td>
+                                    <td>${ev.category}</td>
+                                    <td>${formatDate(ev.date)}</td>
+                               </tr>`;
+                tableBody.append(row);
+                });
+            });
+        }
+
+        refreshRecentEvents();
+
         $('#searchInput').on('input', function () {
             var searchTerm = $(this).val();
             $.ajax({
@@ -231,15 +262,15 @@
                     tableBody.empty();
                     data.forEach(function (ev) {
                         var row = `<tr class="align-middle event-row"
-                                        data-id="${ev.id}"
+                                        data-id="${ev.eventId}"
                                         data-name="${ev.name}"
                                         data-category="${ev.category}"
-                                        data-date="${new Date(ev.date).toISOString().split('T')[0]}"
+                                        data-date="${formatDate(ev.date)}"
                                         data-location="${ev.location}"
                                         data-description="${ev.description || ''}">
                                         <td>${ev.name}</td>
                                         <td>${ev.category}</td>
-                                        <td>${new Date(ev.date).toISOString().split('T')[0]}</td>
+                                        <td>${formatDate(ev.date)}</td>
                                         <td>${ev.location}</td>
                                     </tr>`;
                         tableBody.append(row);
@@ -249,17 +280,30 @@
         });
 
         $('#eventsTable').on('click', '.event-row', function () {
-        var row = $(this);
-
-        $('#modalEventName').text(row.data('name'));
-        $('#modalEventCategory').text(row.data('category'));
-        $('#modalEventDate').text(row.data('date'));
-        $('#modalEventLocation').text(row.data('location'));
-        $('#modalEventDescription').text(row.data('description') || 'No description available.');
-
-        var modal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
-        modal.show();
+            var row = $(this);
+            var eventId = row.data('id');
+            
+            $.post('@Url.Action("AddLastViewedEvent", "Events")', { id: eventId }, function() 
+            {
+                refreshRecentEvents();
+            });
+            
+            $('#modalEventName').text(row.data('name'));
+            $('#modalEventCategory').text(row.data('category'));
+            $('#modalEventDate').text(row.data('date'));
+            $('#modalEventLocation').text(row.data('location'));
+            $('#modalEventDescription').text(row.data('description') || 'No description available.');
+            
+            var modal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
+            modal.show();
         });
-    });
 
+        $('#resetBtn').on('click', function() 
+        {
+            $('#searchInput').val('');
+            $('#filterCategory').val('');
+            $('#sortValue').val('');
+            $('#searchInput').trigger('input');
+        });
+});
 </script>

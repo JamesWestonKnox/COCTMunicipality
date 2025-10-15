@@ -44,6 +44,27 @@ namespace COCTMunicipality.Controllers
             return Json(results);
         }
 
+        /// <summary>
+        /// Adds an event to the list of recently viewed events.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult AddLastViewedEvent(int id)
+        {
+            eventService.AddToLastViewedEvents(id);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Fetches the last 3 viewed events and returns them as JSON.
+        /// </summary>
+        /// <returns>JSON array of recent events</returns>
+        [HttpGet]
+        public JsonResult GetLastViewedEvent()
+        {
+            var recent = eventService.GetLastViewedEvents();
+            return Json(recent);
+        }
 
 
     }
