@@ -9,8 +9,11 @@ namespace COCTMunicipality.Services
     {
         private readonly Dictionary<int, Event> events = new Dictionary<int, Event>();
         private readonly Stack<Event> lastViewedEvents = new Stack<Event>();
-        private readonly HashSet<string> eventCategories = new HashSet<string>();
+        private readonly HashSet<string> eventCategories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+        /// <summary>
+        /// Calls method to populate example events.
+        /// </summary>
         public EventService()
         {
             FillExampleData();
@@ -34,6 +37,27 @@ namespace COCTMunicipality.Services
             return eventCategories.ToList();
         }
 
+        /// <summary>
+        ///  Method to search events by name, category or date.
+        /// </summary>
+        /// <returns></returns>
+        public List<Event> SearchEvents(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return FetchAllEvents();
+            }
+            searchTerm = searchTerm.ToLower();
+
+            return events.Values.Where
+                (
+                e => e.Name.ToLower().Contains(searchTerm) ||
+                e.Category.ToLower().Contains(searchTerm) ||
+                e.Date.ToString("yyyy-MM-dd").Contains(searchTerm)
+                ).ToList();
+        }
+
+
 
         /// <summary>
         /// Method to populate events dictionary with example events.
@@ -46,7 +70,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 1,
                     Name = "Cape Town Jazz Festival",
-                    category = "Music",
+                    Category = "Music",
                     Date = new DateTime(2025, 11, 4),
                     Location = "Cape Town Convention Center"
                 },
@@ -54,7 +78,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 2,
                     Name = "Cape Town Marathon",
-                    category = "Sports",
+                    Category = "Sports",
                     Date = new DateTime(2025, 10, 18),
                     Location = "City Center"
                 },
@@ -62,7 +86,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 3,
                     Name = "Community Cleanup Day",
-                    category = "Volunteer",
+                    Category = "Volunteer",
                     Date = new DateTime(2025, 10, 23),
                     Location = "District Center"
                 },
@@ -70,7 +94,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 4,
                     Name = "Kirstenbosch Summer Concert",
-                    category = "Concert",
+                    Category = "Concert",
                     Date = new DateTime(2025, 11, 15),
                     Location = "Kirstenbosch Botanical Gardens"
                 },
@@ -78,7 +102,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 5,
                     Name = "Springboks VS Wallabies Rugby",
-                    category = "Sports",
+                    Category = "Sports",
                     Date = new DateTime(2025, 8, 23),
                     Location = "DHL Stadium"
                 },
@@ -86,7 +110,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 6,
                     Name = "Cape Town Art Fair",
-                    category = "Art",
+                    Category = "Art",
                     Date = new DateTime(2025, 6, 16),
                     Location = "Cape Town Art Gallery"
                 },
@@ -94,7 +118,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 7,
                     Name = "Heritage Day Braai Festival",
-                    category = "Festival",
+                    Category = "Festival",
                     Date = new DateTime(2025, 9, 24),
                     Location = "Greenmarket Square"
                 },
@@ -102,7 +126,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 8,
                     Name = "Community Safety Workshop",
-                    category = "Safety",
+                    Category = "Safety",
                     Date = new DateTime(2026, 2, 5),
                     Location = "Local Community Halls"
                 },
@@ -110,7 +134,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 9,
                     Name = "Cape Town Green Energy Convention",
-                    category = "Enviroment",
+                    Category = "Enviroment",
                     Date = new DateTime(2025, 11, 23),
                     Location = "Cape Town Convention Center"
                 },
@@ -118,7 +142,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 10,
                     Name = "Cape Town Book Drive",
-                    category = "Education",
+                    Category = "Education",
                     Date = new DateTime(2025, 6, 6),
                     Location = "City Center"
                 },
@@ -126,23 +150,23 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 11,
                     Name = "Cape Town Food and Wine Festival",
-                    category = "Food",
+                    Category = "Food",
                     Date = new DateTime(2025, 5, 23),
                     Location = "Orangezicht Farmers Market"
                 },
                 new Event
                 {
                     EventId = 12,
-                    Name = "",
-                    category = "Sports",
-                    Date = new DateTime(2025, 8, 23),
-                    Location = "DHL Stadium"
+                    Name = "Cape Town Hiking Day",
+                    Category = "Sports",
+                    Date = new DateTime(2025, 9, 1),
+                    Location = "Table Mountain"
                 },
                 new Event
                 {
                     EventId = 13,
                     Name = "Cape Town Cycle Tour",
-                    category = "Sports",
+                    Category = "Sports",
                     Date = new DateTime(2025, 3, 9),
                     Location = "The Grand Parade"
                 },
@@ -150,7 +174,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 14,
                     Name = "Feastival",
-                    category = "Festival",
+                    Category = "Festival",
                     Date = new DateTime(2025, 9, 27),
                     Location = "Makers Landing V&A Waterfront"
                 },
@@ -158,7 +182,7 @@ namespace COCTMunicipality.Services
                 {
                     EventId = 15,
                     Name = "Cape Town Youth Sports Day",
-                    category = "Sports",
+                    Category = "Sports",
                     Date = new DateTime(2025, 12, 10),
                     Location = "Athlone Stadium"
                 },
@@ -166,7 +190,7 @@ namespace COCTMunicipality.Services
             foreach (var ev in exampleEvents)
             {
                 events[ev.EventId] = ev;
-                eventCategories.Add(ev.category);
+                eventCategories.Add(ev.Category);
             }
         }
     }
