@@ -9,6 +9,9 @@ namespace COCTMunicipality.Services
         /// </summary>
         private IssueNode head;
 
+        // Used to auto increment issue id 
+        private int nextId = 1;
+
         /// <summary>
         /// Initializes a new instance of the issue service with an empty linked list.
         /// </summary>
@@ -23,6 +26,7 @@ namespace COCTMunicipality.Services
         /// <param name="issue">The issue to add.</param>
         public void AddIssue(Issue issue)
         {
+            issue.IssueID = nextId++;
             IssueNode newNode = new IssueNode(issue);
             if (head == null)
             {
