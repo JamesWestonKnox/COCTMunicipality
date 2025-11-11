@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "COCT - Service Request Status";
+    ViewData["BodyClass"] = "index-page";
+}
+
+<div class="content text-center">
+    <h1 class="mb-5">Service Request Status</h1>
+    <p class="mb-4">Track and monitor the progress of your submitted service requests.</p>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10 mb-4">
+            <div class="card faded-card h-100">
+                <div class="card-body p-4">
+                    <h4 class="mb-4 text-center text-dark">Submitted Requests</h4>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap mb-3">
+                            <input type="text" id="searchInput" class="form-control search-input" placeholder="Search by ID or Category...">
+                            <select id="statusFilter" class="form-select filter-select">
+                                <option value="">Filter by Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-center gap-3 mb-4">
+                            <a href="/" class="btn btn-custom">Back</a>
+                            <button id="resetBtn" class="btn btn-custom">Reset</button>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Category</th>
+                                <th>Date Submitted</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody id="statusTable">
+                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body.index-page {
+        background-image: url('@Url.Content("~/images/backgrounds/backgroundIndex.jpg")');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .content {
+        margin-top: 5vh;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+
+    .faded-card {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        text-shadow: none;
+    }
+
+        .faded-card h4 {
+            color: black;
+        }
+
+    .btn-custom {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        color: black;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .btn-custom:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    table th, table td {
+        vertical-align: middle;
+        text-align: left;
+        word-wrap: break-word;
+    }
+
+    .search-input {
+        width: 40%;
+        min-width: 250px;
+    }
+
+    .filter-select {
+        width: 25%;
+        min-width: 150px;
+    }
+
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+    }
+
+    .status-pending {
+        background-color: #ffc107;
+    }
+
+    .status-progress {
+        background-color: #17a2b8;
+    }
+
+    .status-completed {
+        background-color: #28a745;
+    }
+</style>
