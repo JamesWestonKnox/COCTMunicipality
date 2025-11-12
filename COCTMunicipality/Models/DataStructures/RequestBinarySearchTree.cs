@@ -7,8 +7,7 @@
  * OpenAI, 2025. ChatGPT [Computer program]. Version GPT-5.
  * Available at: https://chat.openai.com
  */
-
-namespace COCTMunicipality.Models
+namespace COCTMunicipality.Models.DataStructures
 {
     /// <summary>
     /// Binary search tree for looking up and traversing Requests
@@ -103,6 +102,5 @@ namespace COCTMunicipality.Models
         }
     }
 }
-
 
 //----------------------------------------------------------------End of File----------------------------------------------------------------\\
