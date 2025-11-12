@@ -34,6 +34,7 @@ namespace COCTMunicipality.Services
 
         public List<Issue> FetchAllRequestsByStatus() => requestHeap.GetAllRequestsOrderedByStatus();
 
+        public List<Issue> FilterRequestsByStatus(Status status) => requestHeap.FilterRequestsByStatus(status);
         public List<Issue> FetchRequestsByCategory(string category) => requestGraph.FetchRequestByCategory(category);
 
     }

@@ -16,7 +16,7 @@ namespace COCTMunicipality.Controllers
             this.issueService = issueService;
         }
 
-        public IActionResult ViewRequestStatus(string searchID = null, string categoryFilter = null)
+        public IActionResult ViewRequestStatus(string searchID = null, string categoryFilter = null, string statusFilter = null)
         {
             ViewData["BodyClass"] = "index-page";
 
@@ -37,11 +37,27 @@ namespace COCTMunicipality.Controllers
             // List of requests by category using graph.
             List<Issue> requestsByCategory = string.IsNullOrEmpty(categoryFilter) ? allIssues : requestStatusService.FetchRequestsByCategory(categoryFilter);
 
+            // List requests by status using heap
+            List<Issue> requestsByStatusFilter = allIssues;
+            Status parsedStatus = Status.Pending;
+            if (!string.IsNullOrEmpty(statusFilter) && Enum.TryParse<Status>(statusFilter, out parsedStatus))
+            {
+                requestsByStatusFilter = requestStatusService.FilterRequestsByStatus(parsedStatus);
+            }
+
             // Displays final requests
             List<Issue> finalRequests = new List<Issue>();
             if (searchResult != null)
             {
                 finalRequests.Add(searchResult);
+            }
+            else if (!string.IsNullOrEmpty(categoryFilter) && !string.IsNullOrEmpty(statusFilter))
+            {
+                finalRequests = requestsByCategory.Where(r => r.IssueStatus == parsedStatus).ToList();
+            }
+            else if (!string.IsNullOrEmpty(statusFilter))
+            {
+                finalRequests = requestsByStatusFilter;
             }
             else if (!string.IsNullOrEmpty(categoryFilter))
             {

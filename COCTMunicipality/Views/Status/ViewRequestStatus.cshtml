@@ -32,6 +32,13 @@
                             <option value="Fire & Emergency Services">Fire & Emergency Services</option>
                             <option value="Other">Other</option>
                         </select>
+                        <select name="statusFilter" class="form-select search-input">
+                            <option value="" selected>Filter by Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="InProgress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
                         <button type="submit" class="btn btn-custom">Search</button>
                         <a href="/" class="btn btn-custom">Back</a>
                         <a href="@Url.Action("ViewRequestStatus")" class="btn btn-custom">Reset</a>
