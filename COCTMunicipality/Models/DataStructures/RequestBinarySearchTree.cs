@@ -70,11 +70,18 @@ namespace COCTMunicipality.Models.DataStructures
             Node current = root;
             while (current != null)
             {
-                if (requestID < current.Issue.IssueID)
+                if (requestID == current.Issue.IssueID)
                 {
-                    return current.Issue;
+                    return current.Issue; // found
                 }
-                current = requestID < current.Issue.IssueID ? current.Left : current.Right;
+                else if (requestID < current.Issue.IssueID)
+                {
+                    current = current.Left;
+                }
+                else
+                {
+                    current = current.Right;
+                }
             }
             return null;
         }

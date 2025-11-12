@@ -38,7 +38,7 @@ namespace COCTMunicipality.Controllers
             List<Issue> requestsByCategory = string.IsNullOrEmpty(categoryFilter) ? allIssues : requestStatusService.FetchRequestsByCategory(categoryFilter);
 
             // Displays final requests
-            var finalRequests = new List<Issue>();
+            List<Issue> finalRequests = new List<Issue>();
             if (searchResult != null)
             {
                 finalRequests.Add(searchResult);
@@ -52,8 +52,7 @@ namespace COCTMunicipality.Controllers
                 finalRequests = requestsByStatus;
             }
 
-            ViewData["Requests"] = finalRequests;
-            return View();
+            return View(finalRequests);
         }
     }
 }
