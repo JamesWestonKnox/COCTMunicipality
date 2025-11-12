@@ -1,4 +1,14 @@
-﻿using COCTMunicipality.Models;
+﻿/**
+ * IssueService.cs
+ *
+ * Service class used to initilize and pre seed issues.
+ *
+ * Reference:
+ * OpenAI, 2025. ChatGPT [Computer program]. Version GPT-5.
+ * Available at: https://chat.openai.com
+ */
+
+using COCTMunicipality.Models;
 
 namespace COCTMunicipality.Services
 {
@@ -103,3 +113,5 @@ namespace COCTMunicipality.Services
         }
     }
 }
+
+//----------------------------------------------------------------End of File----------------------------------------------------------------\\

@@ -1,4 +1,14 @@
-﻿using COCTMunicipality.Models;
+﻿/**
+ * StatusController.cs
+ *
+ * Controller used to handle logic associated with request status page.
+ *
+ * Reference:
+ * OpenAI, 2025. ChatGPT [Computer program]. Version GPT-5.
+ * Available at: https://chat.openai.com
+ */
+
+using COCTMunicipality.Models;
 using COCTMunicipality.Services;
 using Microsoft.AspNetCore.Mvc;
 
