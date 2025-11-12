@@ -18,6 +18,7 @@ namespace COCTMunicipality.Services
         public IssueService()
         {
             head = null;
+            SeedIssues();
         }
 
         /// <summary>
@@ -74,6 +75,31 @@ namespace COCTMunicipality.Services
                 current = current.Next;
             }
             return count;
+        }
+
+        /// <summary>
+        /// Seed example issues
+        /// </summary>
+        private void SeedIssues()
+        {
+            var exampleIssues = new List<Issue>
+            {
+                new Issue { Category = "Sanitation", Location = "City Bowl", Description = "Overflowing garbage bins near market", IssueStatus = Status.Pending, ReportedAt = DateTime.Now.AddDays(-3) },
+                new Issue { Category = "Roads & Transport", Location = "Atlantic Seaboard", Description = "Potholes along Main Road", IssueStatus = Status.InProgress, ReportedAt = DateTime.Now.AddDays(-5) },
+                new Issue { Category = "Utilities", Location = "Khayelitsha", Description = "Water supply disruption reported", IssueStatus = Status.Completed, ReportedAt = DateTime.Now.AddDays(-10) },
+                new Issue { Category = "Health & Safety", Location = "Mitchells Plain", Description = "Street lighting not working in alley", IssueStatus = Status.Pending, ReportedAt = DateTime.Now.AddDays(-1) },
+                new Issue { Category = "Parks & Recreation", Location = "Southern Suburbs", Description = "Broken swing at community park", IssueStatus = Status.InProgress, ReportedAt = DateTime.Now.AddDays(-2) },
+                new Issue { Category = "Housing & Buildings", Location = "Northern Suburbs", Description = "Graffiti on public building walls", IssueStatus = Status.Completed, ReportedAt = DateTime.Now.AddDays(-8) },
+                new Issue { Category = "Animal Control", Location = "West Coast", Description = "Stray dogs near residential area", IssueStatus = Status.Pending, ReportedAt = DateTime.Now.AddDays(-6) },
+                new Issue { Category = "Environmental Issues", Location = "False Bay", Description = "Illegal dumping on the beach", IssueStatus = Status.InProgress, ReportedAt = DateTime.Now.AddDays(-4) },
+                new Issue { Category = "Fire & Emergency Services", Location = "Helderberg", Description = "Abandoned building fire risk", IssueStatus = Status.Pending, ReportedAt = DateTime.Now.AddDays(-7) },
+                new Issue { Category = "Law Enforcement & Security", Location = "Table Bay", Description = "Suspicious activity reported in park", IssueStatus = Status.Completed, ReportedAt = DateTime.Now.AddDays(-12) }
+            };
+
+            foreach (var issue in exampleIssues)
+            {
+                AddIssue(issue);
+            }
         }
     }
 }
